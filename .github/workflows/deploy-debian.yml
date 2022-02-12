@@ -26,17 +26,11 @@ jobs:
  #     with:
  #       node-version: ${{ matrix.node-version }}
     - run: |
-        #sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install jq npm build-essential || true
         VERSION=$( echo ${{ github.sha }} | head -c7)
         DATE=$(date)
-        #mkdir -p /home/runner/package
-        #cd /home/runner/package
         mkdir DEBIAN
         mkdir -p usr/local/src/edumeet/server
         mkdir -p etc/systemd/system/
-        #mv package/* usr/local/src/edumeet/server/
-        #mv /home/runner/work/***/***/***/*.service etc/systemd/system/
-        rm -rf package
         touch DEBIAN/md5sums
         touch DEBIAN/md5sums
         touch DEBIAN/control
@@ -59,7 +53,7 @@ jobs:
         """ > DEBIAN/postinst
         chmod 775 DEBIAN/postinst
         cd ../
-        dpkg-deb -Zgzip --build package
+        dpkg-deb -Zgzip --build .
         mv /home/runner/package.deb /home/runner/learning-$VERSION.deb
     - name : Release Package
       uses: actions/upload-artifact@v2
