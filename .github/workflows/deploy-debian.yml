@@ -60,5 +60,5 @@ jobs:
     - name : Release Package
       uses: actions/upload-artifact@v2
       with:
-        name: learning-$VERSION
-        path: "/home/runner/learning-$VERSION.deb"
+        name: learning
+        path: "/home/runner/learning*.deb"
