@@ -26,16 +26,16 @@ jobs:
  #     with:
  #       node-version: ${{ matrix.node-version }}
     - run: |
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install jq npm build-essential || true
-        VERSION=${{ github.sha }}
+        #sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install jq npm build-essential || true
+        VERSION=$( echo ${{ github.sha }} | head -c7)
         DATE=$(date)
-        mkdir -p /home/runner/package
-        cd /home/runner/package
+        #mkdir -p /home/runner/package
+        #cd /home/runner/package
         mkdir DEBIAN
         mkdir -p usr/local/src/edumeet/server
         mkdir -p etc/systemd/system/
-        mv package/* usr/local/src/edumeet/server/
-        mv /home/runner/work/***/***/***/*.service etc/systemd/system/
+        #mv package/* usr/local/src/edumeet/server/
+        #mv /home/runner/work/***/***/***/*.service etc/systemd/system/
         rm -rf package
         touch DEBIAN/md5sums
         touch DEBIAN/md5sums
