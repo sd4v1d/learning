@@ -30,7 +30,8 @@ jobs:
       run: |
         echo "::set-output name=VERSION::1.0-git-$( echo ${{ github.sha }} | head -c7)"
     
-    - run: |
+    - name: Create deb package
+      run: |
         VERSION=${{ steps.get-version.outputs.VERSION }}
         DATE=$(date)
         mkdir -p /home/runner/package
@@ -41,7 +42,8 @@ jobs:
         touch DEBIAN/md5sums
         touch DEBIAN/md5sums
         touch DEBIAN/control
-        echo """Package: learning
+        cat > DEBIAN/control <<EOF
+        Package: learning
         Version: $VERSION
         Maintainer: sd4v1d
         Section: admin
@@ -50,20 +52,21 @@ jobs:
         Priority: important
         Description: Multiparty web-meetings using mediasoup and WebRTC (develop branch)
         Depends: nodejs (>= 16), redis
-        """ > DEBIAN/control
-        echo """#!/bin/bash
+        EOF
+        cat > DEBIAN/postinst <<EOF
+        #!/bin/bash
         mkdir -p /etc/learning/
         systemctl daemon-reload
         systemctl enable learning
         echo "\n\nPlease visit https://github.com/sd4v1d/learning/tree/main for configuration details.\n\n"
         echo "\n\nAfter the configuration, you can start service with 'sudo systemctl start learning' command.\n\n"
-        """ > DEBIAN/postinst
+        EOF
         chmod 775 DEBIAN/postinst
         cd ../
         dpkg-deb -Zgzip --build package
         mv /home/runner/package.deb /home/runner/learning-$VERSION.deb
     
-    - name : Release Package
+    - name :  Package
       uses: actions/upload-artifact@v2
       with:
         name: learning-${{ steps.get-version.outputs.VERSION }}
