@@ -37,7 +37,7 @@ jobs:
         touch DEBIAN/md5sums
         touch DEBIAN/control
         echo """Package: learning
-        Version: $VERSION
+        Version: 1.0-git-$VERSION
         Maintainer: sd4v1d
         Section: admin
         Date : $DATE
