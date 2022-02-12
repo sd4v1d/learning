@@ -62,3 +62,9 @@ jobs:
       with:
         name: learning
         path: "/home/runner/learning*.deb"
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: 1.0
+        files: learning*.deb
+
