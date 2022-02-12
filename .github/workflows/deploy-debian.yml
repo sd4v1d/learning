@@ -28,7 +28,7 @@ jobs:
     - name: Get version
       id: get-version
       run: |
-        echo "::set-output name=VERSION::$( echo ${{ github.sha }} | head -c7)"
+        echo "::set-output name=VERSION::1.0-git-$( echo ${{ github.sha }} | head -c7)"
     
     - run: |
         VERSION=${{ steps.get-version.outputs.VERSION }}
@@ -42,7 +42,7 @@ jobs:
         touch DEBIAN/md5sums
         touch DEBIAN/control
         echo """Package: learning
-        Version: 1.0-git-$VERSION
+        Version: $VERSION
         Maintainer: sd4v1d
         Section: admin
         Date : $DATE
