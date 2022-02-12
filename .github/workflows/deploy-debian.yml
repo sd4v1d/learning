@@ -25,8 +25,13 @@ jobs:
  #     uses: actions/setup-node@v2
  #     with:
  #       node-version: ${{ matrix.node-version }}
+    - name: Get version
+      id: get-version
+      run: |
+        echo "::set-output name=VERSION::$( echo ${{ github.sha }} | head -c7)"
+    
     - run: |
-        VERSION=$( echo ${{ github.sha }} | head -c7)
+        VERSION=${{ steps.get-version.outputs.VERSION }}
         DATE=$(date)
         mkdir -p /home/runner/package
         cd /home/runner/package
@@ -57,14 +62,16 @@ jobs:
         cd ../
         dpkg-deb -Zgzip --build package
         mv /home/runner/package.deb /home/runner/learning-$VERSION.deb
+    
     - name : Release Package
       uses: actions/upload-artifact@v2
       with:
-        name: learning
+        name: learning-${{ steps.get-version.outputs.VERSION }}
         path: "/home/runner/learning*.deb"
+        
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: 1.0
-        files: learning*.deb
+        tag_name: "1.0"
+        files: "/home/runner/learning-${{ steps.get-version.outputs.VERSION }}.deb"
 
