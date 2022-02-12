@@ -28,8 +28,10 @@ jobs:
     - run: |
         VERSION=$( echo ${{ github.sha }} | head -c7)
         DATE=$(date)
+        mkdir -p /home/runner/package
+        cd /home/runner/package
         mkdir DEBIAN
-        mkdir -p usr/local/src/edumeet/server
+        mkdir -p usr/local/src/learning
         mkdir -p etc/systemd/system/
         touch DEBIAN/md5sums
         touch DEBIAN/md5sums
@@ -53,7 +55,7 @@ jobs:
         """ > DEBIAN/postinst
         chmod 775 DEBIAN/postinst
         cd ../
-        dpkg-deb -Zgzip --build .
+        dpkg-deb -Zgzip --build package
         mv /home/runner/package.deb /home/runner/learning-$VERSION.deb
     - name : Release Package
       uses: actions/upload-artifact@v2
