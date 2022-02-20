@@ -28,7 +28,7 @@ jobs:
     - name: Get version
       id: get-version
       run: |
-        echo "::set-output name=VERSION::1.0-git-$( echo ${{ github.sha }} | head -c7)"
+        echo "::set-output name=VERSION::1.0-${{ branches }}-git-$( echo ${{ github.sha }} | head -c7)"
     
     - name: Create deb package
       run: |
