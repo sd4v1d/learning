@@ -60,7 +60,7 @@ jobs:
         mkdir -p /etc/learning/
         systemctl daemon-reload
         systemctl enable learning
-        echo "\n\nPlease visit https://github.com/sd4v1d/learning/tree/main for configuration details.\n\n"
+        echo "\n\nPlease visit ${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }} for configuration details.\n\n"
         echo "\n\nAfter the configuration, you can start service with 'sudo systemctl start learning' command.\n\n"
         EOF
         chmod 775 DEBIAN/postinst
