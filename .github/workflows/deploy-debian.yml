@@ -51,7 +51,8 @@ jobs:
         Architecture: amd64
         Priority: optional
         Description: Multiparty web-meetings using mediasoup and WebRTC
-          build from ${{ github.ref_name }} branch, commit:${{ github.sha }}
+          Packet created from ${{ github.ref_name }} branch, commit:${{ github.sha }}
+          Visit ${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }} for details
         Depends: nodejs (>= 16), redis
         EOF
         cat > DEBIAN/postinst <<EOF
