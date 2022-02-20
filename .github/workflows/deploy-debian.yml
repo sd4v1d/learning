@@ -28,7 +28,7 @@ jobs:
     - name: Get version
       id: get-version
       run: |
-        echo "::set-output name=VERSION::1.0-${{ github.ref_type }}-${{ github.ref_name }}-commit-$( echo ${{ github.sha }} | head -c7)"
+        echo "::set-output name=VERSION::1.0-${{ github.ref_name }}"
     
     - name: Create deb package
       run: |
@@ -49,8 +49,9 @@ jobs:
         Section: admin
         Date : $DATE
         Architecture: amd64
-        Priority: important
-        Description: Multiparty web-meetings using mediasoup and WebRTC (develop branch)
+        Priority: optional
+        Description: Multiparty web-meetings using mediasoup and WebRTC
+          build from ${{ github.ref_name }} branch, commit:${{ github.sha }}
         Depends: nodejs (>= 16), redis
         EOF
         cat > DEBIAN/postinst <<EOF
