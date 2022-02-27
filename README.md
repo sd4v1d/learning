@@ -1,4 +1,4 @@
-# learning
+# learning (v1.0.0)
 temporary learning repo
 
 ..to experiment and learn about all that nice github advanced features!
