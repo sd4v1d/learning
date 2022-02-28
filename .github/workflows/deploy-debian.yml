@@ -2,7 +2,7 @@ name: deploy-debian
 
 on:  # workflow_dispatch
   push:
-    branches: [ main ]
+    branches: [ ${{ github.ref_name }} ]
 #  pull_request:
 #    branches: [ main ]
 
